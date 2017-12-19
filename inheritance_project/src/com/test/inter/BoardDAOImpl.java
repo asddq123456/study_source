@@ -1,13 +1,36 @@
 package com.test.inter;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
-public class BoardDAOImpl implements BoardDAO {
+import com.test.singletone.DataSource;
 
+public class BoardDAOImpl implements BoardDAO {
+	
+	private DataSource dataSource=DataSource.getInstance();
+	
 	@Override
 	public void insertBoard(Board board) {
-		// TODO Auto-generated method stub
-
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		String sql="insert into board(bno,title,content)"
+				+ "values(board_seq.nextval,?,?)";
+		
+		con=dataSource.getConnection();
+		try {
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setString(1, board.getTitle());			
+			pstmt.setString(2, board.getContent());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
