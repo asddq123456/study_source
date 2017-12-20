@@ -22,8 +22,8 @@ public class Main {
 		
 		
 		Board board=new Board();
-		board.setTitle("일빠");
-		board.setContent("냉무");
+		board.setTitle("결합도 낮추기");
+		board.setContent("인스턴스 외부주입");
 		
 		main.boardService.createBoard(board);
 

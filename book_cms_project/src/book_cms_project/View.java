@@ -2,6 +2,9 @@ package book_cms_project;
 
 import java.util.Scanner;
 
+import com.cms.exception.InvalidPasswordException;
+import com.cms.exception.NotFoundLoginIDException;
+
 public class View {
 	
 	private static View instance=new View();
@@ -76,9 +79,18 @@ public class View {
 		id=scan.nextLine();
 		System.out.print("패스워드 : ");
 		pwd=scan.nextLine();
-		int result=service.login(id, pwd);
 		
-		String msg="";
+		String msg="로그인에 성공하셨습니다.";
+		try {
+			service.login(id, pwd);
+		} catch (NotFoundLoginIDException e) {
+			msg="아이디가 존재하지 않습니다.";
+		} catch (InvalidPasswordException e) {
+			msg="패스워드가 불일치 합니다.";
+		}
+		System.out.println(msg+"\n");
+		
+		/*String msg="";
 		if(result==-1){ // 아이디 비존재
 			msg="아이디가 존재하지 않습니다.";
 		}else if(result==0){// 패스워드 불일치
@@ -86,7 +98,7 @@ public class View {
 		}else{// 로그인 확인
 			msg="로그인에 성공하셨습니다.";
 		}
-		System.out.println(msg+"\n");
+		System.out.println(msg+"\n");*/
 	}
 }
 

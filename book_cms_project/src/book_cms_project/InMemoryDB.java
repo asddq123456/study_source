@@ -6,12 +6,7 @@ public class InMemoryDB extends DataSource{
 	private InMemoryDB(){}
 	public static InMemoryDB getInstance(){
 		return instance;
-	}
-	
-	
-	
-	Member[] memberList=new Member[100];
-	
+	}	
 	
 	Member selectMemberById(String id){ 
 		Member member = null;

@@ -2,7 +2,9 @@ package book_cms_project;
 
 public abstract class DataSource {
 	public int count;
-	public Member[] memberList;
+	public Member[] memberList=new Member[100];
+	
+	
 	
 	abstract Member selectMemberById(String id);
 	
