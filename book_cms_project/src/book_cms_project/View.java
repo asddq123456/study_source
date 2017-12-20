@@ -83,7 +83,9 @@ public class View {
 		String msg="로그인에 성공하셨습니다.";
 		try {
 			service.login(id, pwd);
-		} catch (NotFoundLoginIDException e) {
+		}catch (RuntimeException e){
+			
+		}catch (NotFoundLoginIDException e) {
 			msg="아이디가 존재하지 않습니다.";
 		} catch (InvalidPasswordException e) {
 			msg="패스워드가 불일치 합니다.";
