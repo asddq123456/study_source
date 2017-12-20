@@ -4,7 +4,16 @@ import java.util.Scanner;
 
 public class View {
 	
-	Service service = new Service();	
+	private static View instance=new View();
+	private View(){}
+	public static View getInstance(){
+		return instance;
+	}
+	
+	private Service service;
+	public void setService(Service service){
+		this.service=service;
+	}
 	
 	// 메인화면
 	boolean mainView(){
@@ -42,9 +51,9 @@ public class View {
 		Member member=new Member();
 		System.out.println("\n가입을 선택하셨습니다.");
 		System.out.print("아이디 : ");
-		member.id=scan.nextLine();
+		member.setId(scan.nextLine());
 		System.out.print("패스워드 : ");
-		member.pwd=scan.nextLine();
+		member.setPwd(scan.nextLine());
 		int result=service.join(member);
 		
 		String msg="";

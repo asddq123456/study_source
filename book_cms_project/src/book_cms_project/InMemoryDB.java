@@ -1,16 +1,23 @@
 package book_cms_project;
 
-public class InMemoryDB {
+public class InMemoryDB extends DataSource{
 	
-	public static int count;
-	public static Member[] memberList=new Member[100];
+	private static InMemoryDB instance=new InMemoryDB();
+	private InMemoryDB(){}
+	public static InMemoryDB getInstance(){
+		return instance;
+	}
+	
+	
+	
+	Member[] memberList=new Member[100];
 	
 	
 	Member selectMemberById(String id){ 
 		Member member = null;
 		
 		for(int index=0;index<memberList.length;index++){
-			if(memberList[index]!=null && id.equals(memberList[index].id)){
+			if(memberList[index]!=null && id.equals(memberList[index].getId())){
 				member=memberList[index];
 				break;
 			}
@@ -23,7 +30,7 @@ public class InMemoryDB {
 		boolean result=false;		
 		for(int index=0;index<memberList.length;index++){
 			
-			if(memberList[index]!=null && id.equals(memberList[index].id)){
+			if(memberList[index]!=null && id.equals(memberList[index].getId())){
 				result=true;
 				break;
 			}
