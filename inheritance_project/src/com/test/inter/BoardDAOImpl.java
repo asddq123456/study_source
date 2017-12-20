@@ -9,7 +9,16 @@ import com.test.singletone.DataSource;
 
 public class BoardDAOImpl implements BoardDAO {
 	
-	private DataSource dataSource=DataSource.getInstance();
+	private static BoardDAOImpl instance=new BoardDAOImpl();
+	private BoardDAOImpl(){}
+	public static BoardDAOImpl getInstance(){
+		return instance;
+	}
+	
+	private DataSource dataSource;
+	public void setDataSource(DataSource dataSource){
+		this.dataSource=dataSource;
+	}
 	
 	@Override
 	public void insertBoard(Board board) {

@@ -4,7 +4,16 @@ import java.util.List;
 
 public class BoardServiceImpl implements BoardService {
 
-	private BoardDAO boardDao=new BoardDAOImpl();
+	private static BoardServiceImpl instance=new BoardServiceImpl();
+	private BoardServiceImpl(){}
+	public static BoardServiceImpl getInstance(){
+		return instance;
+	}
+	
+	private BoardDAO boardDao;
+	public void setBoardDAO(BoardDAO boardDao){
+		this.boardDao=boardDao;
+	}
 	
 	
 	@Override
