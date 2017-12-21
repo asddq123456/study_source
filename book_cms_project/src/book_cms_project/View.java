@@ -2,8 +2,10 @@ package book_cms_project;
 
 import java.util.Scanner;
 
+import com.cms.exception.ComflictIDException;
 import com.cms.exception.InvalidPasswordException;
 import com.cms.exception.NotFoundLoginIDException;
+import com.cms.exception.OutOfRangeException;
 
 public class View {
 	
@@ -57,7 +59,19 @@ public class View {
 		member.setId(scan.nextLine());
 		System.out.print("패스워드 : ");
 		member.setPwd(scan.nextLine());
-		int result=service.join(member);
+		
+		String msg="가입을 축하합니다.";
+		try {
+			service.join(member);
+		} catch (ComflictIDException e) {
+			msg="중복된 아이디 입니다.";
+		} catch (OutOfRangeException e) {
+			msg="허용 인원 추가입니다.";
+		}
+		System.out.println(msg);
+		
+		
+		/*int result=service.join(member);
 		
 		String msg="";
 		if(result==-1){ // 가입미처리
@@ -65,7 +79,7 @@ public class View {
 		}else{// 가입처리
 			msg="가입에 성공했습니다.";
 		}
-		System.out.println(msg+"\n");
+		System.out.println(msg+"\n");*/
 		
 	}
 	

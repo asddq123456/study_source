@@ -2,7 +2,7 @@ package book_cms_project;
 
 public abstract class DataSource {
 	public int count;
-	public Member[] memberList=new Member[100];
+	public Member[] memberList=new Member[3];
 	
 	
 	

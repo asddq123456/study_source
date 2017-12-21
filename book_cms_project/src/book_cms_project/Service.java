@@ -1,7 +1,9 @@
 package book_cms_project;
 
+import com.cms.exception.ComflictIDException;
 import com.cms.exception.InvalidPasswordException;
 import com.cms.exception.NotFoundLoginIDException;
+import com.cms.exception.OutOfRangeException;
 
 public class Service {
 	private static Service instance=new Service();
@@ -30,14 +32,22 @@ public class Service {
 	}
 	
 	// 가입처리 (-1:가입미처리, 1:가입처리)
-	int join(Member member){
-		int result=-1;
-		
-		if((db.countMember()<db.memberList.length-1)
-			&&(!db.confirmMember(member.getId()))){
-			result=db.insertMember(member);
+	void join(Member member) 
+			throws ComflictIDException,OutOfRangeException{
+		if(db.countMember()>db.memberList.length-1){
+			throw new OutOfRangeException();
+			
+		}else if(db.confirmMember(member.getId())){
+			throw new ComflictIDException();
+			
+		}else{
+			db.insertMember(member);
 		}
-		return result;
+		
+		/*if((db.countMember()<db.memberList.length-1)
+			&&(!db.confirmMember(member.getId()))){
+			db.insertMember(member);
+		}*/		
 	}
 	
 	
