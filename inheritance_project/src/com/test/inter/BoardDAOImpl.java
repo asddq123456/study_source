@@ -8,37 +8,47 @@ import java.util.List;
 import com.test.singletone.DataSource;
 
 public class BoardDAOImpl implements BoardDAO {
-	
-	private static BoardDAOImpl instance=new BoardDAOImpl();
-	private BoardDAOImpl(){}
-	public static BoardDAOImpl getInstance(){
+
+	private static BoardDAOImpl instance = new BoardDAOImpl();
+
+	private BoardDAOImpl() {
+	}
+
+	public static BoardDAOImpl getInstance() {
 		return instance;
 	}
-	
+
 	private DataSource dataSource;
-	public void setDataSource(DataSource dataSource){
-		this.dataSource=dataSource;
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
-	
+
 	@Override
 	public void insertBoard(Board board) {
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		
-		String sql="insert into board(bno,title,content)"
-				+ "values(board_seq.nextval,?,?)";
-		
-		con=dataSource.getConnection();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		String sql = "insert into board(bno,title,content)" + "values(board_seq.nextval,?,?)";
+
+		con = dataSource.getConnection();
 		try {
-			pstmt=con.prepareStatement(sql);
-			
-			pstmt.setString(1, board.getTitle());			
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
-			
+
 			pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null) pstmt.close();
+				if (con != null) con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
