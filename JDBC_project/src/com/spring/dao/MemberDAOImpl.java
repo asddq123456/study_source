@@ -15,11 +15,16 @@ import com.jdbc.utils.JDBCUtil;
 import com.spring.dto.MemberVO;
 
 public class MemberDAOImpl implements MemberDAO {
-
+	
 	private static MemberDAOImpl instance=new MemberDAOImpl();
 	private MemberDAOImpl(){}
 	public static MemberDAOImpl getInstance(){
 		return instance;
+	}
+	
+	private DataSource dataSource;
+	public void setDataSource(DataSource dataSource){
+		this.dataSource=dataSource;
 	}
 	
 	// 1. Connection 얻어오기
@@ -41,7 +46,7 @@ public class MemberDAOImpl implements MemberDAO {
 					+ "order by member_regdate desc";
 
 		try {
-			conn = DataSource.getConnection();
+			conn = dataSource.getConnection();
 			stmt = conn.createStatement();
 
 			rs = stmt.executeQuery(sql);
@@ -79,7 +84,7 @@ public class MemberDAOImpl implements MemberDAO {
 					+ "where member_id=?";
 
 		try {
-			conn = DataSource.getConnection();
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			rs = pstmt.executeQuery();
@@ -108,7 +113,7 @@ public class MemberDAOImpl implements MemberDAO {
 		String sql = "insert into member(member_id,member_pwd," 
 					+ "member_name) " + "values(?,?,?)";
 		try {
-			conn = DataSource.getConnection();
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getMember_id());
 			pstmt.setString(2, member.getMember_pwd());
@@ -131,7 +136,7 @@ public class MemberDAOImpl implements MemberDAO {
 		String sql = "update member set member_pwd=?, member_name=?," 
 					+ "member_regdate=? " + "where member_id=?";
 		try {
-			conn = DataSource.getConnection();
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getMember_pwd());
 			pstmt.setString(2, member.getMember_name());
@@ -157,7 +162,7 @@ public class MemberDAOImpl implements MemberDAO {
 		+ "where member_id=?";
 
 		try {
-			conn = DataSource.getConnection();
+			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member_id);
 			pstmt.executeUpdate();

@@ -94,7 +94,9 @@ public class ViewImpl implements View {
 
 		try {
 			service.login(req);
-
+			System.out.println("로그인에 성공했습니다.");
+			System.out.println("계속하려면 엔터를 치세요.");
+			scan.nextLine();
 		} catch (SQLException e) {
 			System.out.println("시스템오류가 발생했습니다.\n잠시 후 다시 이용바랍니다");
 		} catch (NotFoundIDException e) {
