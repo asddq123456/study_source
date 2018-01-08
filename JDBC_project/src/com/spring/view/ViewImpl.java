@@ -165,6 +165,10 @@ public class ViewImpl implements View {
 
 		try {
 			service.joinMember(req);
+			MemberVO member=service.getMemberByID(req.getMember_id());
+			System.out.println("성공적으로 가입되었습니다. ");
+			System.out.println("계속하시려면 엔터를 치세요.");
+			scan.nextLine();			
 		} catch (SQLException e) {
 			System.out.println("시스템오류가 발생했습니다.\n잠시 후 다시 이용바랍니다");
 		} catch (FailToVerifiedIDException e) {
