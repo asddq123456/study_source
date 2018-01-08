@@ -7,14 +7,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+import com.jdbc.exception.FailToVerifiedIDException;
 import com.jdbc.exception.InvalidPasswordException;
 import com.jdbc.exception.NotFoundIDException;
+import com.jdbc.exception.NullLoginUserException;
 import com.jdbc.scope.SessionScope;
 import com.spring.dto.MemberVO;
 import com.spring.service.MemberService;
 
 public class ViewImpl implements View {
-
+	
+	private static ViewImpl instance=new ViewImpl();
+	private ViewImpl(){}
+	public static ViewImpl getInstance(){
+		return instance;
+	}
+	
 	private MemberService service;
 
 	public void setService(MemberService service) {
@@ -43,10 +51,12 @@ public class ViewImpl implements View {
 					loginView();
 				} else {
 					try {
-						service.logout();
+						service.logout();						
 						System.out.println("로그아웃 하셨습니다.");
 					} catch (SQLException e) {
 						System.out.println("로그아웃에 문제가 발생했습니다.\n" + "프로그램을 종료하시기 바랍니다..");
+					} catch (NullLoginUserException e) {
+						System.out.println("로그인한 사용자가 없습니다.");
 					}
 				}
 				break;
@@ -101,12 +111,12 @@ public class ViewImpl implements View {
 			try {
 				List<MemberVO> memberList = service.getMemberList();
 
-				System.out.println("아이디\t패스워드\t이름\t날짜");
+				System.out.println("순번\t아이디\t패스워드\t이름\t날짜");
 				int count = 1;
 				for (MemberVO member : memberList) {
 					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 					String date = format.format(member.getMember_regDate());
-					System.out.println("[" + (count++) + "]");
+					System.out.print("[" + (count++) + "]\t");
 					System.out.print(member.getMember_id() + "\t");
 					System.out.print(member.getMember_pwd() + "\t");
 					System.out.print(member.getMember_name() + "\t");
@@ -155,6 +165,10 @@ public class ViewImpl implements View {
 			service.joinMember(req);
 		} catch (SQLException e) {
 			System.out.println("시스템오류가 발생했습니다.\n잠시 후 다시 이용바랍니다");
+		} catch (FailToVerifiedIDException e) {
+			System.out.println("중복된 아이디입니다.\n다시 시도하세요.");
+			System.out.println("계속하시려면 엔터를 치세요.");
+			scan.nextLine();			
 		}
 
 	}
