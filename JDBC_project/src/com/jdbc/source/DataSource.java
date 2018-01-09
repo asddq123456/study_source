@@ -28,7 +28,7 @@ public class DataSource {
 	}
 	private static DataSource instance = new DataSource();
 
-	private DataSource() {
+	protected DataSource() {
 	}
 
 	public static DataSource getInstance() {

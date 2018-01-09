@@ -10,18 +10,24 @@ public class JDBCUtil {
 	private JDBCUtil(){}
 	
 	public static void close(Connection conn)throws SQLException{
-		if(conn!=null) conn.close();
+		try{
+			if(conn!=null) conn.close();
+		}catch(Exception ignore){}
 	}
 	public static void close(Connection conn, Statement stmt)
 		throws SQLException{
 		if(stmt!=null) stmt.close();
-		if(conn!=null) conn.close();
+		try{
+			if(conn!=null) conn.close();
+		}catch(Exception ignore){}
 	}
 	public static void close(Connection conn, Statement stmt,
-			ResultSet rs) throws SQLException{
+			ResultSet rs) throws SQLException{		
 		if(rs!=null) rs.close();
 		if(stmt!=null) stmt.close();
-		if(conn!=null) conn.close();
+		try{
+			if(conn!=null) conn.close();
+		}catch(Exception ignore){}
 	}
 	
 	

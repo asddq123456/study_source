@@ -1,6 +1,7 @@
 package com.jdbc.main;
 
 import com.jdbc.source.DataSource;
+import com.jdbc.source.DataSourceDBCP2;
 import com.spring.dao.MemberDAO;
 import com.spring.dao.MemberDAOImpl;
 import com.spring.service.MemberService;
@@ -17,8 +18,10 @@ public class Main {
 	
 	static {
 		
-		DataSource dataSource=DataSource.getInstance();
-		
+		//DataSource dataSource=DataSource.getInstance();
+		DataSourceDBCP2 dataSource=DataSourceDBCP2.getInstance();
+		dataSource.setUrl("jdbc:oracle:thin:@127.0.0.1:1521:XE");
+				
 		memberDAO=MemberDAOImpl.getInstance();
 		((MemberDAOImpl)memberDAO).setDataSource(dataSource);
 		
