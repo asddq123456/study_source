@@ -1,0 +1,43 @@
+<?xml version='1.0'?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+
+<sqlMap namespace="MemberMapper">
+	
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="member" type="com.spring.dto.MemberVO" />
+	
+	<select id="selectMemberList"  resultClass="member">
+		select * from member
+		order by member_regdate desc
+	</select>
+	<select id="selectMemberByID"  resultClass="member">
+		select * from member
+		where member_id = #member_id#
+	</select>
+	<update id="insertMember" >
+		insert into member(member_id,member_pwd,member_name) 
+		values(#member_id#,#member_pwd#,#member_name#)
+	</update>
+	<update id="updateMember">
+		update member 
+		set 
+		member_pwd=#member_pwd#,
+		member_name=#member_name#,
+		member_regDate=#member_regDate#
+		where
+		member_id=#member_id#		 
+	</update>
+	<delete id="deleteMember" parameterClass="str" >
+		delete from member where member_id=#member_id#
+	</delete>
+</sqlMap>
+
+
+
+
+
+
+
