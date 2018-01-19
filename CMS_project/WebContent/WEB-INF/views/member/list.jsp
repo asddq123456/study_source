@@ -18,6 +18,7 @@
 <title></title>
 </head>
 <body>
+	<a href="join"><button>회원등록</button></a>
 	<table border="1">
 		<tr>
 			<th>아이디</th>
@@ -31,7 +32,11 @@
 		<tr>
 			<td><%=member.getMember_id() %></td>
 			<td><%=member.getMember_pwd() %></td>
-			<td><%=member.getMember_name() %></td>
+			<td>
+				<a href="readPage?member_id=<%=member.getMember_id()%>">
+					<%=member.getMember_name() %>
+				</a>
+			</td>
 			<td><%=member.getMember_regDate() %></td>
 		</tr>
 		<%
