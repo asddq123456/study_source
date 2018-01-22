@@ -19,6 +19,19 @@
 </head>
 <body>
 	<a href="join"><button>회원등록</button></a>
+	
+	<% 
+		MemberVO loginUser=(MemberVO)request.getAttribute("loginUser");
+		if(loginUser==null){ 
+	%>
+		<a href="<%=request.getContextPath() %>/commons/login">
+			<button>Login</button></a>
+	<%}else{ %>
+		<%=loginUser.getMember_name() %>님 반갑습니다.
+		<a href="<%=request.getContextPath() %>/commons/logout">
+		<button>Logout</button></a>
+	<%} %>
+	
 	<table border="1">
 		<tr>
 			<th>아이디</th>

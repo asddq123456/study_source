@@ -1,6 +1,7 @@
 package com.cms.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -13,12 +14,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.cms.dto.MemberVO;
 import com.cms.service.MemberService;
 import com.cms.service.MemberServiceImpl;
+import com.jdbc.scope.SessionScope;
 
 @WebServlet("/member/modify")
 public class ModifyMemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String url="/WEB-INF/views/member/modifyForm.jsp";
+		
+		if(SessionScope.loginUser==null){
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out=response.getWriter();			
+			out.print("<script>alert('로그인이 필요합니다.');</script>");
+			url=request.getContextPath()+"/commons/login";
+			/*response.sendRedirect(url);*/
+			out.print("<script>");
+			out.print("location.href='"+url+"'");
+			out.print("</script>");
+			return;
+		}
+		
 		String member_id=(String)request.getParameter("member_id");
 		
 		if(member_id!=null){

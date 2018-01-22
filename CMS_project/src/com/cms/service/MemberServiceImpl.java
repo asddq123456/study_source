@@ -65,9 +65,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void removeMember(String member_id) throws SQLException {
 		MemberVO loginUser = SessionScope.loginUser;
-		if (loginUser.getMember_id().equals(member_id)) {
+		/*if (loginUser.getMember_id().equals(member_id)) {
 			SessionScope.loginUser = null;
-		}
+		}*/
 		memberDAO.deleteMember(member_id);
 		
 	}

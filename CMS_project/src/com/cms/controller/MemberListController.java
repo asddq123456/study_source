@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.cms.dto.MemberVO;
 import com.cms.service.MemberService;
 import com.cms.service.MemberServiceImpl;
+import com.jdbc.scope.SessionScope;
+import com.test.view.ViewResolver;
 
 
 @WebServlet("/member/list")
@@ -21,9 +23,14 @@ public class MemberListController extends HttpServlet {
   
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url="/WEB-INF/views/member/list.jsp";
+		String url="/member/list";
 		
 		MemberService memberService=MemberServiceImpl.getInstance();
+		
+		MemberVO loginUser=SessionScope.loginUser;
+		
+		request.setAttribute("loginUser", loginUser);
+		
 		
 		try {
 			List<MemberVO> memberList=memberService.getMemberList();
@@ -33,7 +40,8 @@ public class MemberListController extends HttpServlet {
 			request.setAttribute("error", "시스템에러가 발생했습니다.");
 		}
 		
-		request.getRequestDispatcher(url).forward(request, response);
+		ViewResolver.view(url, request, response);
+		
 	}
 
 	
