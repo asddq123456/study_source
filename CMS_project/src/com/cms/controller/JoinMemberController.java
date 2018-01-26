@@ -1,6 +1,7 @@
 package com.cms.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -12,20 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.cms.service.MemberService;
 import com.cms.service.MemberServiceImpl;
 import com.jdbc.exception.FailToVerifiedIDException;
+import com.test.view.ViewResolver;
 
 @WebServlet("/member/join")
 public class JoinMemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String url="/WEB-INF/views/member/joinForm.jsp";
-		System.out.println("!!");
-		request.getRequestDispatcher(url).forward(request, response);
+		String url="/member/joinForm";		
+		ViewResolver.view(url, request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("utf-8");
 		
-		String url=request.getContextPath()+"/member/list";
+		String url="redirect:/member/list";
 		
 		MemberService service=MemberServiceImpl.getInstance();
 				
@@ -37,19 +38,16 @@ public class JoinMemberController extends HttpServlet {
 		try {
 			service.joinMember(joinReq);
 		} catch (SQLException e) {
-			url="/WEB-INF/views/commons/error.jsp";			
+			url="/commons/error";			
 			e.printStackTrace();
-			request.getRequestDispatcher(url).forward(request, response);
-			return;
 		} catch (FailToVerifiedIDException e) {
-			url="/WEB-INF/views/member/joinForm.jsp";
-			request.setAttribute("msg", "아이디 중복입니다.");
+			url="/member/joinForm";
+			request.setAttribute("msg", "아이디 중복입니다.");			
 			e.printStackTrace();
-			request.getRequestDispatcher(url).forward(request, response);
-			return;
 		}
 		
-		response.sendRedirect(url);
+		/*response.sendRedirect(url);*/
+		ViewResolver.view(url, request, response);
 	}
 
 }

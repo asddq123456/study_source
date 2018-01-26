@@ -2,10 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-	MemberVO member = (MemberVO) request.getAttribute("member");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,21 +19,21 @@
 					<td>
 						<input type="text" name="member_id"
 							  readonly style="background:#aaaaaa;"
-							  value="<%=member.getMember_id()%>" />
+							  value="${member.member_id }" />
 					</td>
 				</tr>
 				<tr>
 					<td>패스워드</td>
 					<td>
 						<input type="password" name="member_pwd"
-						value="<%=member.getMember_pwd()%>"/>
+						value="${member.member_pwd }"/>
 					</td>
 				</tr>
 				<tr>
 					<td>이름</td>
 					<td>
 						<input type="text" name="member_name"
-						value="<%=member.getMember_name()%>" />
+						value="${member.member_name }" />
 					</td>
 				</tr>				
 			</table>

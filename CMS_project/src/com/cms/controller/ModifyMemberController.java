@@ -15,13 +15,14 @@ import com.cms.dto.MemberVO;
 import com.cms.service.MemberService;
 import com.cms.service.MemberServiceImpl;
 import com.jdbc.scope.SessionScope;
+import com.test.view.ViewResolver;
 
 @WebServlet("/member/modify")
 public class ModifyMemberController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String url="/WEB-INF/views/member/modifyForm.jsp";
+		String url="/member/modifyForm";
 		
 		if(SessionScope.loginUser==null){
 			response.setContentType("text/html;charset=utf-8");
@@ -48,13 +49,13 @@ public class ModifyMemberController extends HttpServlet {
 		}else{
 			return;
 		}
-		request.getRequestDispatcher(url).forward(request, response);
+		ViewResolver.view(url, request, response);
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String url=request.getContextPath()+"/member/list";
+		String url="redirect:/member/list";
 		
 		ModifyRequest modifyReq=new ModifyRequest();
 		modifyReq.setMember_id(request.getParameter("member_id"));
@@ -70,7 +71,7 @@ public class ModifyMemberController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect(url);
+		ViewResolver.view(url, request, response);
 		
 	}
 

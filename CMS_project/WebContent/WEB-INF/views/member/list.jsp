@@ -4,12 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
-
-<%
-	List<MemberVO> memberList
-	=(List<MemberVO>)request.getAttribute("memberList");
-	String error=(String)request.getAttribute("error");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,18 +14,19 @@
 </head>
 <body>
 	<a href="join"><button>회원등록</button></a>
-	
-	<% 
-		MemberVO loginUser=(MemberVO)request.getAttribute("loginUser");
-		if(loginUser==null){ 
-	%>
-		<a href="<%=request.getContextPath() %>/commons/login">
+		
+	<c:choose>
+		<c:when test="${empty loginUser }">
+			<a href="<%=request.getContextPath() %>/commons/login">
 			<button>Login</button></a>
-	<%}else{ %>
-		<%=loginUser.getMember_name() %>님 반갑습니다.
-		<a href="<%=request.getContextPath() %>/commons/logout">
-		<button>Logout</button></a>
-	<%} %>
+		</c:when>
+		
+		<c:otherwise>
+			${loginUser.member_name }님 반갑습니다.
+			<a href="<%=request.getContextPath() %>/commons/logout">
+			<button>Logout</button></a>
+		</c:otherwise>
+	</c:choose>
 	
 	<table border="1">
 		<tr>
@@ -39,22 +35,19 @@
 			<th>이름</th>
 			<th>가입날짜</th>
 		</tr>
-		<%
-			for(MemberVO member:memberList){
-		%>
-		<tr>
-			<td><%=member.getMember_id() %></td>
-			<td><%=member.getMember_pwd() %></td>
-			<td>
-				<a href="readPage?member_id=<%=member.getMember_id()%>">
-					<%=member.getMember_name() %>
+		
+		<c:forEach var="member" items="${memberList }">
+			<tr>
+				<td>${member.member_id }</td>
+				<td>${member.member_pwd }</td>
+				<td>
+				<a href="readPage?member_id=${member.member_id }">
+					${member.member_name }
 				</a>
-			</td>
-			<td><%=member.getMember_regDate() %></td>
-		</tr>
-		<%
-			}
-		%>
+				</td>
+				<td>${member.member_regDate }</td>
+			</tr>
+		</c:forEach>
 	</table>
 </body>
 </html>
