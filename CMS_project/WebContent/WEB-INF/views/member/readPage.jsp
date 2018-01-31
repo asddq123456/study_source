@@ -4,14 +4,13 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-</head>
-<body>
-	<div id="wrap">
+<%@ include file="/WEB-INF/views/include/header.jsp" %>
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/page.css" /> 
+
+<div id="content">
+	<h1>회원 상세정보</h1>
+	<hr/>
 		<table border="1">
 			<tr>
 				<td>아이디</td>
@@ -31,11 +30,10 @@
 			</tr>
 		</table>
 		<br/>
-		<button id="modifyBtn">MODIFY</button>&nbsp;&nbsp;&nbsp;		
-		<button id="deleteBtn" onclick="delete_go();">DELETE</button>&nbsp;&nbsp;&nbsp;
-		<button id="listBtn">LIST</button>&nbsp;&nbsp;&nbsp;
-	</div>
-</body>
+		<button class="btn" id="modifyBtn">MODIFY</button>&nbsp;&nbsp;&nbsp;		
+		<button class="btn" id="deleteBtn" onclick="delete_go();">DELETE</button>&nbsp;&nbsp;&nbsp;
+		<button class="btn" id="listBtn">LIST</button>&nbsp;&nbsp;&nbsp;
+	
 <script>
 	var modifyBtn=document.getElementById("modifyBtn");
 	modifyBtn.onclick=function(event){
@@ -53,7 +51,10 @@
 		location.href="list";
 	};
 </script>
-</html>
+
+</div> <!-- div#content end -->
+
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
 
 

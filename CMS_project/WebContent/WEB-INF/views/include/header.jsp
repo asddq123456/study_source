@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<script
+  src="http://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <title></title>
 <style>
 *{
@@ -24,7 +27,6 @@ div#wrap{
 div#wrap header{		
 	height:200px;	
 	position:relative;
-	border:1px solid black;
 	background:#ddddff;
 	border-radius:15px;
 	overflow:hidden;
@@ -44,6 +46,11 @@ div#wrap header div#head_bottom{
 
 div#head_bottom > button{
 	margin-left:10px;
+}
+
+div#wrap div#top_menu{
+	height:30px;
+	line-height:30px;
 }
 
 div#wrap div#top_menu ul{
@@ -68,7 +75,7 @@ div#wrap div#head_top div#title>h1{
 	text-align:center;
 }
 
-div#wrap div#head_bottom>button{
+.btn{
 	height:30px;
 	padding:0 10px;
 	border-radius:7px;
@@ -86,10 +93,23 @@ div#wrap div#head_bottom>button{
 	<div id="wrap">
 		<header>
 			<div id="head_top">				
-				<div id="top_menu">
-					<ul>
+				<div id="top_menu">				
+					<ul>						
 						<li id="site">회원관리 | 상품관리 | 게시판관리</li>
 						<li id="log">${loginUser.member_name }님 반갑습니다.</li>
+						<li>
+							<c:choose>
+								<c:when test="${empty loginUser }">
+									<a href="<%=request.getContextPath() %>/commons/login">
+									<button class="btn" >Login</button></a>
+								</c:when>
+								
+								<c:otherwise>									
+									<a href="<%=request.getContextPath() %>/commons/logout">
+									<button class="btn" style="height:25px;">Logout</button></a>
+								</c:otherwise>
+							</c:choose>
+						</li>
 					</ul>					
 				</div>
 				<div id="title">
@@ -97,24 +117,20 @@ div#wrap div#head_bottom>button{
 				</div>
 			</div>
 			<div id="head_bottom">
-				<button id="memberBtn">회원리스트</button>
-				<button id="productBtn">상품리스트</button>
+				<button class="btn" id="memberBtn">회원리스트</button>
+				<button class="btn" id="productBtn">상품리스트</button>
 			</div>
 		</header>
-	</div>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

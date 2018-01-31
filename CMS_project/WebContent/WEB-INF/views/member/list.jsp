@@ -6,27 +6,16 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title></title>
-</head>
-<body>
-	<a href="join"><button>회원등록</button></a>
-		
-	<c:choose>
-		<c:when test="${empty loginUser }">
-			<a href="<%=request.getContextPath() %>/commons/login">
-			<button>Login</button></a>
-		</c:when>
-		
-		<c:otherwise>
-			${loginUser.member_name }님 반갑습니다.
-			<a href="<%=request.getContextPath() %>/commons/logout">
-			<button>Logout</button></a>
-		</c:otherwise>
-	</c:choose>
+<%@ include file="/WEB-INF/views/include/header.jsp" %>
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/page.css" /> 
+
+<div id="content">
+
+	<h1>회원 리스트</h1>
+	<a href="join"><button class="btn" >회원등록</button></a>
+	<hr/>	
+	
 	
 	<table border="1">
 		<tr>
@@ -49,9 +38,9 @@
 			</tr>
 		</c:forEach>
 	</table>
-</body>
-</html>
+</div> <!-- div#content end -->
 
+<%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
 
 
