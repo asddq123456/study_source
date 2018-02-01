@@ -1,13 +1,13 @@
 package com.cms.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.jdbc.scope.SessionScope;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/commons/logout")
 public class LogoutController extends HttpServlet {
@@ -16,9 +16,12 @@ public class LogoutController extends HttpServlet {
 		
 		String url=request.getContextPath()+"/member/list";
 		
-		if(SessionScope.loginUser!=null){
+		/*if(SessionScope.loginUser!=null){
 			SessionScope.loginUser=null;
-		}
+		}*/
+		
+		HttpSession session=request.getSession();
+		session.invalidate();
 		
 		response.sendRedirect(url);
 	}

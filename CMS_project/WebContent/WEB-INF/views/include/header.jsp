@@ -75,6 +75,11 @@ div#wrap div#head_top div#title>h1{
 	text-align:center;
 }
 
+div#head_top div#top_menu ul>li>a {
+	color:white;
+	text-decoration:none;
+}
+
 .btn{
 	height:30px;
 	padding:0 10px;
@@ -95,7 +100,7 @@ div#wrap div#head_top div#title>h1{
 			<div id="head_top">				
 				<div id="top_menu">				
 					<ul>						
-						<li id="site">회원관리 | 상품관리 | 게시판관리</li>
+						<li id="site"><a href="<%=request.getContextPath()%>/member/list">회원관리</a> | 상품관리 | 게시판관리</li>
 						<li id="log">${loginUser.member_name }님 반갑습니다.</li>
 						<li>
 							<c:choose>
@@ -119,8 +124,19 @@ div#wrap div#head_top div#title>h1{
 			<div id="head_bottom">
 				<button class="btn" id="memberBtn">회원리스트</button>
 				<button class="btn" id="productBtn">상품리스트</button>
-			</div>
+			</div>			
 		</header>
+		
+<script>
+	/* $('#memberBtn').click(function(event){
+		
+	}); */
+	
+	$('#memberBtn').on('click',function(event){		
+		location.href="<c:url value="/member/list" />";
+	});
+	
+</script>
 	
 	
 	

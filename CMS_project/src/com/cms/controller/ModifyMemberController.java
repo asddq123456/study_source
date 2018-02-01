@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.cms.dto.MemberVO;
 import com.cms.service.MemberService;
@@ -24,7 +25,11 @@ public class ModifyMemberController extends HttpServlet {
 		
 		String url="/member/modifyForm";
 		
-		if(SessionScope.loginUser==null){
+		HttpSession session=request.getSession();
+		MemberVO loginUser=(MemberVO)session.getAttribute("loginUser");
+		
+		//if(SessionScope.loginUser==null){
+		if(loginUser==null){
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out=response.getWriter();			
 			out.print("<script>alert('로그인이 필요합니다.');</script>");

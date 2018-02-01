@@ -73,18 +73,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void login(LoginRequest req) throws SQLException, NotFoundIDException, InvalidPasswordException {
+	public MemberVO login(LoginRequest req) throws SQLException, NotFoundIDException, InvalidPasswordException {
 		MemberVO member = memberDAO.selectMemberByID(req.getId());
 		if (member != null) {// ���̵� ����
 			if (req.getPwd().equals(member.getMember_pwd())) {// �α���Ȯ��.
-				SessionScope.loginUser = member; // �α��� ��������
-				return;
+				//SessionScope.loginUser = member; // �α��� ��������
+				return member;
 			} else {
 				throw new InvalidPasswordException();
 			}
 		} else {// ���̵� ����ġ
 			throw new NotFoundIDException();
 		}
+		
 	}
 
 	@Override

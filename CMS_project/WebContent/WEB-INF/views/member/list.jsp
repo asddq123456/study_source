@@ -5,6 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
@@ -34,7 +35,11 @@
 					${member.member_name }
 				</a>
 				</td>
-				<td>${member.member_regDate }</td>
+				<td>
+					<fmt:formatDate value="${member.member_regDate }"
+					pattern="yyyy-MM-dd hh:mm:ss" />
+					
+				</td>
 			</tr>
 		</c:forEach>
 	</table>

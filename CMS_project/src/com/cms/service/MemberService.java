@@ -27,7 +27,7 @@ public interface MemberService {
 	void removeMember(String member_id)throws SQLException;
 	
 	//�α��� �ϱ�
-	void login(LoginRequest req)
+	MemberVO login(LoginRequest req)
 			throws SQLException,NotFoundIDException,InvalidPasswordException; 
 	//�α׾ƿ� �ϱ�
 	void logout()throws SQLException,NullLoginUserException;

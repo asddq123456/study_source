@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.cms.dto.MemberVO;
 import com.cms.service.MemberService;
 import com.cms.service.MemberServiceImpl;
 import com.jdbc.exception.InvalidPasswordException;
@@ -37,8 +39,12 @@ public class LoginController extends HttpServlet {
 		
 		String url="redirect:/member/list";
 		
+		HttpSession session=request.getSession();
+		
+		
 		try {
-			service.login(logReq);
+			MemberVO member=service.login(logReq);
+			session.setAttribute("loginUser", member);			
 		} catch (SQLException e) {
 			url="/commons/error";
 			request.setAttribute("msg", "데이터베이스 장애입니다.");
